@@ -22,8 +22,13 @@ textarea,
 span {
     font-family: "Sora", sans-serif;
 }
+
+*{
+    scrollbar-width: none;
+}
+
 body {
-    background: linear-gradient(to right, #00c6ff, #0072ff);
+    background: linear-gradient(to right, #00c6ff, #003576);
 }
 
 /* Sección principal */
@@ -68,6 +73,10 @@ h2 {
 }
 
 /* Tarjetas de vehículos */
+#tarjeta .mb-3{
+    padding: 20px;
+    color: #ffffffcc;
+}
 
 .card {
     border-radius: 15px;
