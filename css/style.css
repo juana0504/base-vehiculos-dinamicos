@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Staatliches", sans-serif;
+}
+
+p,
+a,
+button,
+li,
+label,
+input,
+select,
+textarea,
+span {
+    font-family: "Sora", sans-serif;
+}
+body {
+    background: linear-gradient(to right, #00c6ff, #0072ff);
+}
+
+/* Sección principal */
+#form {
+    background: #ffffffcc; /* blanco semi-transparente */
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Títulos */
+h2 {
+    font-weight: 500;
+    color: #003366;
+    text-align: center;
+}
+
+/* Inputs */
+.form-control {
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    padding: 12px;
+    transition: 0.3s;
+}
+
+.form-control:focus {
+    border-color: #0072ff;
+    box-shadow: 0 0 8px rgba(0, 114, 255, 0.5);
+}
+
+/* Botón principal */
+#ag-v {
+    border-radius: 12px;
+    font-weight: bold;
+    padding: 10px 20px;
+    transition: 0.3s;
+}
+
+#ag-v:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* Tarjetas de vehículos */
+
+.card {
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
