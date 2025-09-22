@@ -31,6 +31,33 @@ body {
     background: linear-gradient(to right, #00c6ff, #003576);
 }
 
+#carrito{
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 20px 20px;
+    border-radius: 15px;
+    border: 0 transparent;
+    background: #ffffff;
+    color: #0056b3;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transition: .4s;
+}
+
+#carrito:hover{
+    background-color: #ffffffcf;
+    transform: scale(1.1);
+}
+
+#carrito .bi-cart3{
+    font-size: 20px;
+}
+.bi::before, [class*=" bi-"]::before, [class^=bi-]::before{
+    font-weight: 500 !important;  
+}
+
 /* Sección principal */
 #form {
     background: #ffffffcc; /* blanco semi-transparente */
@@ -89,3 +116,97 @@ h2 {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
+#panel-carrito {
+    position: fixed;
+    width: 30%;
+    height: 90%;
+    background: #ffffff;
+    padding: 25px 10px;
+    border-radius: 15px;
+    top: 80px;
+    right: -500px;
+    align-items: center;
+    display: flex;
+    /* Flexbox */
+    flex-direction: column;
+    box-shadow: 0 0px 20px rgba(0, 0, 0, 0.178);
+}
+
+#panel-carrito.active{
+    right: 0;
+    position: absolute;
+}
+
+#panel-carrito h2.title-carrito {
+    border-bottom: 2px solid #003366;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#cont-productos {
+    flex: 1;
+    /* Ocupa todo el espacio disponible */
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    /* Para que los productos se apilen uno debajo del otro */
+    align-items: center;
+    /* Centra horizontalmente las cards */
+}
+
+#panel-carrito .productos-card {
+    position: relative;
+    width: 100%;
+    max-width: 95%;
+    /* Evita que pegue a los bordes */
+    display: flex;
+    padding: 10px 10px;
+    margin: 10px 0;
+    border-radius: 15px;
+    box-shadow: 0 0px 20px rgba(0, 0, 0, 0.178);
+    transition: .4s;
+}
+
+#panel-carrito .productos-card:hover {
+    transform: translateX(-10px);
+}
+
+/* Columna del botón (para alinearlo al fondo) */
+#panel-carrito .productos-card #boton {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    /* lo manda al fondo */
+    align-items: flex-end;
+    /* lo alinea a la derecha */
+}
+
+/* Botón de eliminar */
+#eliminar {
+    width: 40px;
+    height: 40px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: .4s;
+}
+
+#eliminar:hover {
+    transform: scale(1.1);
+}
+
+#panel-carrito h2.total {
+    border-top: 2px solid #003366;
+    padding-top: 20px;
+    margin-top: auto;
+    /* ya lo tienes para empujar abajo */
+    align-self: stretch;
+    /* hace que el h2 ocupe todo el ancho del panel */
+    text-align: left;
+    /* ahora el texto queda al inicio (izquierda) */
+    padding-left: 10px;
+    /* opcional — ajusta para alinearlo con el contenido */
+    box-sizing: border-box;
+}
