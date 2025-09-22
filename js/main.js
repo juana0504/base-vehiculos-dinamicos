@@ -1,6 +1,7 @@
 const input = document.getElementsByClassName("form-control");
 const contCard = document.getElementById("cont-cards");
 const form = document.getElementById("vehiculo-form");
+const contProductos = document.getElementById("cont-productos");
 
 
 function createCard(url, nombreA, marcaA, modeloA, kilometrajeA, precioA) {
@@ -56,8 +57,14 @@ function createCard(url, nombreA, marcaA, modeloA, kilometrajeA, precioA) {
     });
 
     comprar.addEventListener("click", () => {
+        // 1. Mostrar mensaje
         alert(`Has comprado el vehículo ${nombreA} - ${marcaA} (${modeloA}) por $${precioA}`);
+
+        // 2. Crear y enviar al carrito
+        const newProducto = createProductos(fotoFinal, nombreA, marcaA, precioA);
+        contProductos.appendChild(newProducto);
     });
+
 
     cardPrincipal.appendChild(cardSecundaria);
     cardSecundaria.appendChild(img);
@@ -96,13 +103,79 @@ form.addEventListener("submit", (e) => {
     }
 
 });
-
-function modalProductos(){
+// funcion para el panel 
+function modalProductos() {
     let selector = document.getElementById("panel-carrito")
 
     selector.classList.toggle("active");
 }
 
-document.addEventListener('DOMContentLoaded', function() { 
-  document.getElementById('carrito').addEventListener('click', modalProductos);
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('carrito').addEventListener('click', modalProductos);
 });
+
+// Función para crear productos en el carrito
+function createProductos(url, nombre, marca, precio) {
+    // Imagen por defecto si no envían url
+    const fotoFinal = url || "https://tse1.mm.bing.net/th/id/OIP.4JudGN8ibtldepPW253_7AHaFW?pid=Api&P=0&h=180";
+
+    // Contenedor principal
+    const carritoPrincipal = document.createElement("div");
+    carritoPrincipal.classList.add("productos-card", "col-12");
+
+    // Fila
+    const carritoFila = document.createElement("div");
+    carritoFila.classList.add("row");
+
+    // Columna 1: Imagen
+    const colCarrito1 = document.createElement("div");
+    colCarrito1.classList.add("col-lg-4", "col-md-4", "col-carrito1");
+    const imgCarrito = document.createElement("img");
+    imgCarrito.classList.add("w-100");
+    imgCarrito.setAttribute("src", fotoFinal);
+    colCarrito1.appendChild(imgCarrito);
+
+    // Columna 2: Info
+    const colCarrito2 = document.createElement("div");
+    colCarrito2.classList.add("col-lg-6", "col-md-6", "col-carrito2");
+
+    const h3Nombre = document.createElement("h3");
+    h3Nombre.classList.add("card-title");
+    h3Nombre.textContent = nombre;
+
+    const h4Marca = document.createElement("h4");
+    h4Marca.classList.add("card-subtitle", "text-muted");
+    h4Marca.textContent = marca;
+
+    const h3Precio = document.createElement("h3");
+    h3Precio.classList.add("text-success");
+    h3Precio.textContent = "$" + precio;
+
+    colCarrito2.appendChild(h3Nombre);
+    colCarrito2.appendChild(h4Marca);
+    colCarrito2.appendChild(h3Precio);
+
+    // Columna 3: Botón eliminar
+    const colCarrito3 = document.createElement("div");
+    colCarrito3.classList.add("col-lg-2", "col-md-2", "col-carrito3", "boton");
+
+    const btnDelete = document.createElement("button");
+    btnDelete.classList.add("btn", "btn-danger");
+    btnDelete.setAttribute('id', 'eliminar-carrito')
+    btnDelete.textContent = "X";
+
+    btnDelete.addEventListener("click", () => {
+        carritoPrincipal.remove();
+    });
+
+    colCarrito3.appendChild(btnDelete);
+
+    // Armado final
+    carritoFila.appendChild(colCarrito1);
+    carritoFila.appendChild(colCarrito2);
+    carritoFila.appendChild(colCarrito3);
+
+    carritoPrincipal.appendChild(carritoFila);
+
+    return carritoPrincipal;
+}

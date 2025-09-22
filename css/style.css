@@ -172,7 +172,7 @@ h2 {
 }
 
 /* Columna del botón (para alinearlo al fondo) */
-#panel-carrito .productos-card #boton {
+#panel-carrito .productos-card .boton {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -182,7 +182,7 @@ h2 {
 }
 
 /* Botón de eliminar */
-#eliminar {
+#eliminar-carrito {
     width: 40px;
     height: 40px;
     font-weight: bold;
@@ -193,7 +193,7 @@ h2 {
     transition: .4s;
 }
 
-#eliminar:hover {
+#eliminar-carrito:hover {
     transform: scale(1.1);
 }
 
@@ -209,4 +209,10 @@ h2 {
     padding-left: 10px;
     /* opcional — ajusta para alinearlo con el contenido */
     box-sizing: border-box;
+}
+
+
+
+#panel-carrito .mb-3-{
+    text-align: left;
 }
