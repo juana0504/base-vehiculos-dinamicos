@@ -197,7 +197,7 @@ h2 {
     transform: scale(1.1);
 }
 
-#panel-carrito h2.total {
+#total-carrito h2.total {
     border-top: 2px solid #003366;
     padding-top: 20px;
     margin-top: auto;
@@ -213,6 +213,3 @@ h2 {
 
 
 
-#panel-carrito .mb-3-{
-    text-align: left;
-}

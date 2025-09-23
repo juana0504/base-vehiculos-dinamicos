@@ -63,6 +63,9 @@ function createCard(url, nombreA, marcaA, modeloA, kilometrajeA, precioA) {
         // 2. Crear y enviar al carrito
         const newProducto = createProductos(fotoFinal, nombreA, marcaA, precioA);
         contProductos.appendChild(newProducto);
+
+        totalCarrito += parseFloat(precioA);
+        actualizarTotal();
     });
 
 
@@ -104,6 +107,9 @@ form.addEventListener("submit", (e) => {
 
 });
 // funcion para el panel 
+
+let totalCarrito = 0;
+
 function modalProductos() {
     let selector = document.getElementById("panel-carrito")
 
@@ -166,6 +172,8 @@ function createProductos(url, nombre, marca, precio) {
 
     btnDelete.addEventListener("click", () => {
         carritoPrincipal.remove();
+        totalCarrito -= parseFloat(precio);
+        actualizarTotal();
     });
 
     colCarrito3.appendChild(btnDelete);
@@ -179,3 +187,12 @@ function createProductos(url, nombre, marca, precio) {
 
     return carritoPrincipal;
 }
+
+function actualizarTotal() {
+    const totalDiv = document.getElementById("total-carrito");
+    totalDiv.innerHTML = `<h3>Total: $${totalCarrito}</h3>`;
+}
+
+
+
+
