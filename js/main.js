@@ -3,9 +3,10 @@ const contCard = document.getElementById("cont-cards");
 const form = document.getElementById("vehiculo-form");
 const contProductos = document.getElementById("cont-productos");
 
+let totalCarrito = 0;
 
+// Función para crear tarjeta de vehículo
 function createCard(url, nombreA, marcaA, modeloA, kilometrajeA, precioA) {
-
     const fotoFinal = url || "https://tse1.mm.bing.net/th/id/OIP.4JudGN8ibtldepPW253_7AHaFW?pid=Api&P=0&h=180";
 
     const cardPrincipal = document.createElement("div");
@@ -54,20 +55,22 @@ function createCard(url, nombreA, marcaA, modeloA, kilometrajeA, precioA) {
 
     eliminar.addEventListener("click", () => {
         cardPrincipal.remove();
+
+        // Quitar del localStorage
+        let vehiculosGuardados = JSON.parse(localStorage.getItem("vehiculos")) || [];
+        vehiculosGuardados = vehiculosGuardados.filter(v => !(v.nombre === nombreA && v.marca === marcaA));
+        localStorage.setItem("vehiculos", JSON.stringify(vehiculosGuardados));
     });
 
     comprar.addEventListener("click", () => {
-        // 1. Mostrar mensaje
         alert(`Has comprado el vehículo ${nombreA} - ${marcaA} (${modeloA}) por $${precioA}`);
 
-        // 2. Crear y enviar al carrito
         const newProducto = createProductos(fotoFinal, nombreA, marcaA, precioA);
         contProductos.appendChild(newProducto);
 
         totalCarrito += parseFloat(precioA);
         actualizarTotal();
     });
-
 
     cardPrincipal.appendChild(cardSecundaria);
     cardSecundaria.appendChild(img);
@@ -84,8 +87,8 @@ function createCard(url, nombreA, marcaA, modeloA, kilometrajeA, precioA) {
     return cardPrincipal;
 }
 
+// Registro de vehículo
 form.addEventListener("submit", (e) => {
-
     e.preventDefault();
 
     const url = document.getElementById("foto-v").value.trim();
@@ -98,42 +101,45 @@ form.addEventListener("submit", (e) => {
     if (!nombreA || !marcaA || !modeloA || !kilometrajeA || !precioA) {
         alert("Complete todos los campos para el registro del vehículo por favor");
         return;
-    }
-    else {
+    } else {
         const newCard = createCard(url, nombreA, marcaA, modeloA, kilometrajeA, precioA);
         contCard.appendChild(newCard);
+
+        // Guardar en localStorage
+        const vehiculo = { url, nombre: nombreA, marca: marcaA, modelo: modeloA, kilometraje: kilometrajeA, precio: precioA };
+        let vehiculosGuardados = JSON.parse(localStorage.getItem("vehiculos")) || [];
+        vehiculosGuardados.push(vehiculo);
+        localStorage.setItem("vehiculos", JSON.stringify(vehiculosGuardados));
+
         form.reset();
     }
-
 });
-// funcion para el panel 
 
-let totalCarrito = 0;
-
+// Panel carrito
 function modalProductos() {
     let selector = document.getElementById("panel-carrito")
-
     selector.classList.toggle("active");
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('carrito').addEventListener('click', modalProductos);
-});
+document.getElementById('carrito').addEventListener('click', modalProductos);
 
-// Función para crear productos en el carrito
+// Crear productos en carrito
 function createProductos(url, nombre, marca, precio) {
-    // Imagen por defecto si no envían url
     const fotoFinal = url || "https://tse1.mm.bing.net/th/id/OIP.4JudGN8ibtldepPW253_7AHaFW?pid=Api&P=0&h=180";
 
-    // Contenedor principal
+    const producto = { url: fotoFinal, nombre, marca, precio };
+
+    // Guardar en localStorage
+    let carritoGuardado = JSON.parse(localStorage.getItem("carrito")) || [];
+    carritoGuardado.push(producto);
+    localStorage.setItem("carrito", JSON.stringify(carritoGuardado));
+
     const carritoPrincipal = document.createElement("div");
     carritoPrincipal.classList.add("productos-card", "col-12");
 
-    // Fila
     const carritoFila = document.createElement("div");
     carritoFila.classList.add("row");
 
-    // Columna 1: Imagen
     const colCarrito1 = document.createElement("div");
     colCarrito1.classList.add("col-lg-4", "col-md-4", "col-carrito1");
     const imgCarrito = document.createElement("img");
@@ -141,7 +147,6 @@ function createProductos(url, nombre, marca, precio) {
     imgCarrito.setAttribute("src", fotoFinal);
     colCarrito1.appendChild(imgCarrito);
 
-    // Columna 2: Info
     const colCarrito2 = document.createElement("div");
     colCarrito2.classList.add("col-lg-6", "col-md-6", "col-carrito2");
 
@@ -161,24 +166,26 @@ function createProductos(url, nombre, marca, precio) {
     colCarrito2.appendChild(h4Marca);
     colCarrito2.appendChild(h3Precio);
 
-    // Columna 3: Botón eliminar
     const colCarrito3 = document.createElement("div");
     colCarrito3.classList.add("col-lg-2", "col-md-2", "col-carrito3", "boton");
 
     const btnDelete = document.createElement("button");
     btnDelete.classList.add("btn", "btn-danger");
-    btnDelete.setAttribute('id', 'eliminar-carrito')
     btnDelete.textContent = "X";
 
     btnDelete.addEventListener("click", () => {
         carritoPrincipal.remove();
         totalCarrito -= parseFloat(precio);
         actualizarTotal();
+
+        // Actualizar localStorage
+        let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+        carrito = carrito.filter(item => !(item.nombre === nombre && item.marca === marca && item.precio === precio));
+        localStorage.setItem("carrito", JSON.stringify(carrito));
     });
 
     colCarrito3.appendChild(btnDelete);
 
-    // Armado final
     carritoFila.appendChild(colCarrito1);
     carritoFila.appendChild(colCarrito2);
     carritoFila.appendChild(colCarrito3);
@@ -188,11 +195,31 @@ function createProductos(url, nombre, marca, precio) {
     return carritoPrincipal;
 }
 
+// Actualizar total carrito
 function actualizarTotal() {
     const totalDiv = document.getElementById("total-carrito");
-    totalDiv.innerHTML = `<h3>Total: $${totalCarrito}</h3>`;
+    totalDiv.innerHTML = `
+        <h2>Total: $ ${ totalCarrito}</h2>
+        <a href="carrito.html">Ver Carrito</a>
+    `;
 }
 
+// Recuperar datos guardados al cargar
+document.addEventListener("DOMContentLoaded", () => {
+    // Vehículos guardados
+    const vehiculosGuardados = JSON.parse(localStorage.getItem("vehiculos")) || [];
+    vehiculosGuardados.forEach(v => {
+        const card = createCard(v.url, v.nombre, v.marca, v.modelo, v.kilometraje, v.precio);
+        contCard.appendChild(card);
+    });
 
+    // Carrito guardado
+    const carritoGuardado = JSON.parse(localStorage.getItem("carrito")) || [];
+    carritoGuardado.forEach(item => {
+        const producto = createProductos(item.url, item.nombre, item.marca, item.precio);
+        contProductos.appendChild(producto);
+        totalCarrito += parseFloat(item.precio);
+    });
 
-
+    actualizarTotal();
+});

@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Staatliches", sans-serif;
+}
+
+p,
+a,
+button,
+li,
+label,
+input,
+select,
+textarea,
+span,
+td,
+th {
+    font-family: "Sora", sans-serif;
+}
+
+* {
+    scrollbar-width: none;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(to right, #00c6ff, #003576);
+    margin: 0;
+    padding: 30px;
+    color: #003366;
+}
+
+/* Título */
+h1 {
+    text-align: center;
+    color: #fff;
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Tabla carrito */
+#tabla-carrito {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    background: #ffffffcc;
+    /* blanco semi-transparente */
+}
+
+#tabla-carrito thead {
+    background: #003366;
+    color: #fff;
+}
+
+#tabla-carrito th,
+#tabla-carrito td {
+    padding: 15px;
+    text-align: center;
+}
+
+#tabla-carrito tbody tr {
+    transition: background 0.3s, transform 0.2s;
+}
+
+#tabla-carrito tbody tr:hover {
+    background: rgba(0, 114, 255, 0.1);
+    transform: scale(1.01);
+}
+
+/* Imagen dentro de la tabla */
+#tabla-carrito td img {
+    width: 60px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Total */
+#total {
+    max-width: 900px;
+    margin: 15px auto 0 auto; /* queda debajo de la tabla */
+    text-align: center;
+}
+
+#total h3 {
+    display: inline-block;
+    background: #003366;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 300;
+}
+
+a {
+  display: inline-block;
+  margin-top: 0; /* ya no hace falta el margin grande */
+  text-decoration: none;
+  color: #fff;
+  background: #003366;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: 0.3s;
+}

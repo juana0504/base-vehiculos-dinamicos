@@ -197,6 +197,18 @@ h2 {
     transform: scale(1.1);
 }
 
+a {
+  display: inline-block;
+  margin-top: 18px;
+  text-decoration: none;
+  color: #fff;
+  background: #003366;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
 #total-carrito h2.total {
     border-top: 2px solid #003366;
     padding-top: 20px;
@@ -210,6 +222,7 @@ h2 {
     /* opcional — ajusta para alinearlo con el contenido */
     box-sizing: border-box;
 }
+
 
 
 
