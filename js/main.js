@@ -57,7 +57,7 @@ function createCard(url, nombreA, marcaA, modeloA, kilometrajeA, precioA) {
         cardPrincipal.remove();
 
         // Quitar del localStorage
-        let vehiculosGuardados = JSON.parse(localStorage.getItem("vehiculos")) || [];
+        const vehiculosGuardados = JSON.parse(localStorage.getItem("vehiculos")) || [];
         vehiculosGuardados = vehiculosGuardados.filter(v => !(v.nombre === nombreA && v.marca === marcaA));
         localStorage.setItem("vehiculos", JSON.stringify(vehiculosGuardados));
     });
@@ -107,7 +107,7 @@ form.addEventListener("submit", (e) => {
 
         // Guardar en localStorage
         const vehiculo = { url, nombre: nombreA, marca: marcaA, modelo: modeloA, kilometraje: kilometrajeA, precio: precioA };
-        let vehiculosGuardados = JSON.parse(localStorage.getItem("vehiculos")) || [];
+        const vehiculosGuardados = JSON.parse(localStorage.getItem("vehiculos")) || [];
         vehiculosGuardados.push(vehiculo);
         localStorage.setItem("vehiculos", JSON.stringify(vehiculosGuardados));
 
@@ -117,7 +117,7 @@ form.addEventListener("submit", (e) => {
 
 // Panel carrito
 function modalProductos() {
-    let selector = document.getElementById("panel-carrito")
+    const selector = document.getElementById("panel-carrito")
     selector.classList.toggle("active");
 }
 
@@ -130,7 +130,7 @@ function createProductos(url, nombre, marca, precio) {
     const producto = { url: fotoFinal, nombre, marca, precio };
 
     // Guardar en localStorage
-    let carritoGuardado = JSON.parse(localStorage.getItem("carrito")) || [];
+    const carritoGuardado = JSON.parse(localStorage.getItem("carrito")) || [];
     carritoGuardado.push(producto);
     localStorage.setItem("carrito", JSON.stringify(carritoGuardado));
 
@@ -179,7 +179,7 @@ function createProductos(url, nombre, marca, precio) {
         actualizarTotal();
 
         // Actualizar localStorage
-        let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+        const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
         carrito = carrito.filter(item => !(item.nombre === nombre && item.marca === marca && item.precio === precio));
         localStorage.setItem("carrito", JSON.stringify(carrito));
     });
