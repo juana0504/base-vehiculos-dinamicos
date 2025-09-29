@@ -5,14 +5,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const carritoGuardado = JSON.parse(localStorage.getItem("carrito")) || [];
     let total = 0;
 
-    // 3. Recorremos cada producto y creamos una fila
+    // 2. Recorremos cada producto guardado en el carrito
     carritoGuardado.forEach((producto) => {
         const fila = document.createElement("tr");
 
-        // Columna 1: Imagen
+        // Columna 1: Imagen del vehículo
         const tdImagen = document.createElement("td");
         const img = document.createElement("img");
-        img.src = producto.url;
+        // ⚠️ Ojo: en el carrito los guardamos como "foto", no como "url"
+        img.src = producto.foto || producto.url; // soporte para ambas claves
         img.width = 100;
         tdImagen.appendChild(img);
 
@@ -28,6 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const tdPrecio = document.createElement("td");
         tdPrecio.textContent = "$" + producto.precio;
 
+        // Acumular el total
         total += parseFloat(producto.precio);
 
         // Agregar celdas a la fila
@@ -36,14 +38,14 @@ document.addEventListener("DOMContentLoaded", () => {
         fila.appendChild(tdMarca);
         fila.appendChild(tdPrecio);
 
-        // Agregar fila a la tabla
+        // Insertar fila en la tabla
         tabla.appendChild(fila);
     });
 
-    // 4. Mostrar el total en algún div
+    // 3. Mostrar el total y un link para volver
     const totalDiv = document.getElementById("total");
     totalDiv.innerHTML = `
-    <a href="index.html">Registrar Vehiculos</a>
-    <h3>Total: $${total}</h3>
+        <a href="index.html">Registrar Vehículos</a>
+        <h3>Total: $${total}</h3>
     `;
 });
